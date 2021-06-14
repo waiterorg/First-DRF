@@ -1,6 +1,6 @@
 #from django.shortcuts import render
 from django.contrib.auth.models import User
-from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAdminUser
 from .permissions import IsSuperUser, IsAuthorOrReadOnly, IsStaffOrReadOnly, IsSuperUserOrStaffReadOnly
 from blog.models import Article
@@ -11,10 +11,9 @@ class ArticleList(ListCreateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
 
-class ArticleDetail(RetrieveAPIView):
+class ArticleDetail(RetrieveUpdateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
-    lookup_field = "slug"
     permission_classes = (IsStaffOrReadOnly,IsAuthorOrReadOnly)
 
 class UserList(ListCreateAPIView):
@@ -22,7 +21,7 @@ class UserList(ListCreateAPIView):
     serializer_class = UserSerializer
     permission_classes = (IsSuperUserOrStaffReadOnly,)
 
-class UserDetail(RetrieveAPIView):
+class UserDetail(RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsSuperUserOrStaffReadOnly,)
