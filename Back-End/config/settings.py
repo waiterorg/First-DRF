@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'dj_rest_auth',
     'dj_rest_auth.registration',
+    'django_filters',
 
     'blog.apps.BlogConfig',
     'api.apps.ApiConfig',
@@ -145,7 +146,8 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.TokenAuthentication',
         # 'rest_framework_simplejwt.authentication.JWTAuthentication',
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-    ]
+    ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 SITE_ID = 1
